@@ -7,6 +7,8 @@ import json
 import can
 import click
 
+VERSION = '0.0.1'
+
 
 class RadarState:
     """RadarState Struct
