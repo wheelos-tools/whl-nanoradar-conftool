@@ -54,10 +54,6 @@ class RadarState:
         """
         return (self.buffer[0] >> 6) & 0x01
 
-    def parse(self, buffer):
-        if len(buffer) != 8:
-            raise ValueError('Invalid buffer length, expected 8 bytes')
-
     @property
     def nvm_write_status(self):
         """nvm_write_status"""
@@ -200,7 +196,7 @@ class RadarConfig:
     def sensor_id(self, value):
         """sensor_id setter
         """
-        if not (0 <= value <= 7):
+        if not 0 <= value <= 7:
             raise ValueError('sensor_id must be in range [0, 7]')
         self.buffer[4] = (self.buffer[4] & 0xf8) | (value & 0x07)
 
@@ -254,21 +250,21 @@ def main(ctx, interface, bitrate, channel):
 )
 @click.pass_context
 def config(ctx, message_id, settings):
+    """Configure nano radar device on the CAN bus.
     """
-    """
-    config = RadarConfig()
+    conf = RadarConfig()
     for key, val in settings:
-        if hasattr(config, key):
-            config.__setattr__(key, val)
+        if hasattr(conf, key):
+            setattr(conf, key, val)
 
     with can.Bus(**ctx.obj) as bus:
         # TODO(all): use dbc and cantools to encode the message
         message = can.Message(arbitration_id=message_id,
-                              data=config.buffer,
+                              data=conf.buffer,
                               is_extended_id=False)
         bus.send(message)
         print(r'sent configuration message: '
-              f'{hex(message_id)}#{config.buffer.hex()}')
+              f'{hex(message_id)}#{conf.buffer.hex()}')
 
 
 @main.command()
