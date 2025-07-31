@@ -1,11 +1,12 @@
 [project]
 name = 'whl-nanoradar-conftool'
+readme = { file = "README.md", content-type = "text/markdown" }
 authors = [
   { name = "Pride Leong", email = "lykling.lyk@gmail.com" }
 ]
-description = "config tool for serial devices"
+description = "config tool for nanoradar"
 requires-python = ">3.8"
-dynamic = ["dependencies", "version", "readme"]
+dynamic = ["dependencies", "version"]
 
 [project.scripts]
 whl-nanoradar-conftool = "whl_nanoradar_conftool:main"
@@ -25,7 +26,6 @@ py-modules = ["whl_nanoradar_conftool"]
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
 version = {attr = "whl_nanoradar_conftool.VERSION"}
-readme = {file = "README.md"}
 
 [tool.setuptools.packages]
 find = {}

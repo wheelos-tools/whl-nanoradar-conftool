@@ -311,7 +311,7 @@ def scan(ctx, **kwargs):
                 conjecture_number = round(freq)
                 print(f'sensor id: {sensor_id}, '
                       f'conjecture number: {conjecture_number}')
-                print(f'  {state.pretty_json()}')
+                print(f'{state.pretty_json()}')
 
 
 if __name__ == '__main__':
